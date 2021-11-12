@@ -1,0 +1,7 @@
+<script runat="server">
+	var trackPoint = JSON.parse(Jaxer.request.bodyAsString);
+	alert(JSON.stringify(trackPoint));
+	Jaxer.DB.execute("UPDATE racing.track SET x = ?, z = ? WHERE id = ?", trackPoint.x, trackPoint.z, trackPoint.id);
+	//Jaxer.DB.execute("INSERT INTO racing.track (x, y, z) VALUES (?, ?, ?)", trackPoint.x, 0, trackPoint.z);
+	Jaxer.response.setContents(JSON.stringify({}));
+</script>

@@ -1,0 +1,4 @@
+<script runat="server">
+	var track = Jaxer.DB.execute("SELECT CONCAT('[', id, ',', x , ',', y, ',', z, ']') FROM racing.track").singleColumn.join(',');
+	Jaxer.response.setContents('var track = [' + track + ']');
+</script>

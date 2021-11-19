@@ -30,13 +30,13 @@ function toggleHouses(button) {
     //houseMesh[i].material.transparent = true;
   }
 }
-function toggleRoofs() {
+export function toggleRoofs() {
   roofsVisible = !roofsVisible;
   for (var i = 0; i < roofMesh.length; i++) {
     roofMesh[i].visible = roofsVisible;
   }
 }
-function toggleFloors() {
+export function toggleFloors() {
   floorsVisible = !floorsVisible;
   for (var i = 0; i < floorMesh.length; i++) {
     floorMesh[i].visible = floorsVisible;

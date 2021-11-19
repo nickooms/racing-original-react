@@ -6,7 +6,7 @@ export let bochten = [];
 export let bochtMeshes = [];
 export let bochtenVisible = true;
 
-function toggleBochten() {
+export function toggleBochten() {
   bochtenVisible = !bochtenVisible;
   for (var i = 0; i < bochtMeshes.length; i++) {
     bochtMeshes[i].visible = bochtenVisible;

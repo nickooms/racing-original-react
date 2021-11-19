@@ -8,7 +8,7 @@ export const setPercent = (value) => {
   percent = value;
 };
 
-export let moving = true;
+export let moving = false;
 
 export const setMoving = (value) => {
   moving = value;
@@ -82,11 +82,7 @@ for (let i = 0; i < trackLength; i++) {
     // debugger;
     console.log(e.message);
   }
-  trackPoint.position.set(
-    trackPosition.x,
-    trackPosition.y + 0.3,
-    trackPosition.z
-  );
+  trackPoint.position.set(trackPosition.x, trackPosition.y + 0.3, trackPosition.z);
   trackPoints.push(trackPoint);
   clickObjects.push(trackPoint);
   //trackColors[i].setHSL(0.6, 1.0, Math.max(0, -trackPosition.x / 200) + 0.5);

@@ -1,4 +1,9 @@
 import { moving, setMoving } from './track.js';
+import { Stippel } from './finishes.js';
+import { toggleRoofs, toggleFloors } from './house.js';
+import { toggleBochten } from './bocht.js';
+import { Dals } from './finishes.js';
+import { camera, setCamera, views, viewIndex, setViewIndex } from './camera.js';
 
 const KEY_SPACE = 32;
 
@@ -7,7 +12,11 @@ var clickedPoints = [];
 var currentAction = null;
 
 export const sMenu = `
-	<select id="ddSplit" style="display:none;"><option>1x1</option><option selected="true">2x1</option><option>1x2</option></select>
+	<select id="ddSplit" style="display:none;">
+		<option>1x1</option>
+		<option selected="true">2x1</option>
+		<option>1x2</option>
+	</select>
 	<button id="btnSplit" style="display:none;">Split</button>
 	<button id="btnMove" style="display:none;">Move</button>
 	<button id="btnWalls">Muren</button>
@@ -18,23 +27,33 @@ export const sMenu = `
 	<button id="btnDals">Dals</button>
 `;
 
-export function addControls() {
-  divProperties = document.getElementById('Properties');
+const $ = (selector) => document.querySelector(selector);
+
+const onWindowResize = () => {
+  const { innerWidth: width, innerHeight: height } = window;
+  camera.aspect = width / height;
+  camera.updateProjectionMatrix();
+  renderer.setSize(width, height);
+};
+
+export const addControls = () => {
+  divProperties = $('#Properties');
   divProperties.innerHTML = sMenu;
-  $('#ddSplit').change(showSplit);
-  $('#btnSplit').click(split);
-  $('#btnMove').click(move);
-  $('#btnWalls').click(() => void toggleHouses(this));
-  $('#btnRoofs').click(() => void toggleRoofs());
-  $('#btnFloors').click(() => void toggleFloors());
-  $('#btnStippel').click(() => void Stippel.toggle());
-  $('#btnCorners').click(() => void toggleBochten());
-  $('#btnDals').click(() => void Dals.toggle());
+  $('#ddSplit').addEventListener('change', showSplit, false);
+  $('#btnSplit').addEventListener('click', split, false);
+  $('#btnMove').addEventListener('click', move, false);
+  $('#btnWalls').addEventListener('click', () => toggleHouses(this), false);
+  $('#btnRoofs').addEventListener('click', toggleRoofs, false);
+  $('#btnFloors').addEventListener('click', toggleFloors, false);
+  $('#btnStippel').addEventListener('click', Stippel.toggle, false);
+  $('#btnCorners').addEventListener('click', toggleBochten, false);
+  $('#btnDals').addEventListener('click', Dals.toggle, false);
   window.addEventListener('resize', onWindowResize, false);
   document.addEventListener('mousedown', onMouseDown, false);
   document.addEventListener('mousewheel', onDocumentMouseWheel, false);
-  document.addEventListener('keydown', onKeyDown);
-}
+  document.addEventListener('keydown', onKeyDown, false);
+};
+
 function formatCoordinate(coordinate) {
   var x = coordinate.x + '';
   if (x.indexOf('.') < 0) {
@@ -52,6 +71,7 @@ function formatCoordinate(coordinate) {
   }
   return x.substr(0, 9) + ', ' + z.substr(0, 9);
 }
+
 function move() {
   currentAction = {
     action: 'move',
@@ -59,12 +79,14 @@ function move() {
   };
   console.log(lastSelected.position);
 }
+
 function split() {
   var vertices = object.geometry.vertices;
   showSplit();
 }
+
 function showSplit() {
-  var value = document.getElementById('ddSplit').value.split('x');
+  var value = $('#ddSplit').value.split('x');
   for (var i = 0; i < parseInt(value[0]); i++) {
     var geom = object.geometry.clone(new THREE.Geometry());
     for (var iv = 0; iv < object.geometry.vertices.length; iv++) {
@@ -88,10 +110,12 @@ function showSplit() {
   //initRenderer();
   //renderer.render(scene, camera);
 }
-var object;
-var divProperties;
-var clickedPoint;
-var clickedObject;
+
+let object;
+let divProperties;
+let clickedPoint;
+let clickedObject;
+
 function addProperties(object, deep) {
   var s = '<table cellspacing="0" cellpadding="0">';
   for (var property in object) {
@@ -132,6 +156,7 @@ function addProperties(object, deep) {
   s += '</table>';
   return s;
 }
+
 function onMouseDown(event) {
   if (divProperties.contains(event.target)) {
     return;
@@ -275,11 +300,6 @@ function onMouseDown(event) {
     }
   }
 }
-function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-}
 
 function onDocumentMouseDown(event) {
   event.preventDefault();
@@ -356,9 +376,9 @@ function onKeyDown(event) {
       );
       break;
     case 'V'.charCodeAt(0):
-      viewIndex++;
+      setViewIndex(viewIndex + 1);
       if (viewIndex >= views.length) {
-        viewIndex = 0;
+        setViewIndex(0);
       }
       setCamera(views[viewIndex]);
       break;

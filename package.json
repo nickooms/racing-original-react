@@ -1,0 +1,25 @@
+{
+  "name": "racing-original-react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "live-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nickooms/racing-original-react.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nickooms/racing-original-react/issues"
+  },
+  "homepage": "https://github.com/nickooms/racing-original-react#readme",
+  "dependencies": {
+    "@types/three": "^0.135.0",
+    "three": "^0.135.0"
+  }
+}

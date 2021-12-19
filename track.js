@@ -80,7 +80,7 @@ for (let i = 0; i < trackLength; i++) {
     trackPoint.name = track[i][0];
   } catch (e) {
     // debugger;
-    console.log(e.message);
+    // console.log(e.message);
   }
   trackPoint.position.set(trackPosition.x, trackPosition.y + 0.3, trackPosition.z);
   trackPoints.push(trackPoint);

@@ -13,6 +13,9 @@ import { addGolf, setGolf } from './golf.js';
 import { addGround } from './ground.js';
 import { camera, addCamera, initCamera } from './camera.js';
 import { addControls, sMenu } from './control.js';
+// import { addPoles } from './pole.js';
+// import { addHoles } from './hole.js';
+import { addWPI, addWRI, addWKN, addWVB, addWGO } from './wfs/index.js';
 
 function init() {
   addCamera();
@@ -28,19 +31,27 @@ function init() {
     //'Kastanjelaan',
     //'Kerk'
   ]);
-  addBochten();
-  addStippel();
+  // addBochten();
+  // addStippel();
   //addFinishes();
   //addBus();
   //addKinderkop();
   //addZebra();
-  addDal();
+  // addDal();
   //addTiles();
   addGolf();
   //addGeometry();
   addGround();
   addTrack();
-  var cyl = new THREE.CylinderGeometry(0.07, 0.12, 10);
+
+  // addPole();
+  // addPoles();
+  addWPI();
+  addWRI();
+  addWKN();
+  addWVB();
+  addWGO();
+  /* var cyl = new THREE.CylinderGeometry(0.07, 0.12, 10);
   cyl.computeBoundingBox();
   var cylMat = new THREE.MeshBasicMaterial({
     color: 0x666666,
@@ -50,7 +61,7 @@ function init() {
   cylMesh.position.x = 152561.0;
   cylMesh.position.y = 5;
   cylMesh.position.z = -221859.36;
-  scene.add(cylMesh);
+  scene.add(cylMesh); */
 
   //addCar();
   initCamera();
